@@ -10,7 +10,7 @@ const config = {
   BOT_NUMBER: process.env.BOT_NUMBER || "YourBotNumber",
   OWNER_NUMBER: process.env.OWNER_NUMBER || "YourOwnerNumber",
   BING_NEWS_API_KEY: process.env.BING_NEWS_API_KEY || "YourBingNewsAPIKey",
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY || "YourOpenAIAPIKey",
+  ALIVE_MSG: process.env.ALIVE_MSG || "Hy I Am Dark-Rio-MD",
 };
 
 module.exports = config;
