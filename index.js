@@ -23,18 +23,25 @@ const ownerNumber = ['94779415698']
 
 //===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
-if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
-const sessdata = config.SESSION_ID
-const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
-filer.download((err, data) => {
-if(err) throw err
-fs.writeFile(__dirname + '/auth_info_baileys/creds.json', data, () => {
-console.log("Session downloaded ✅")
-})})}
+async function downloadSessionData() {
+    if (!config.SESSION_ID) {
+        console.error('Please add your session to SESSION_ID env !!');
+        return false;
+    }
+    const sessdata = config.SESSION_ID.split("Ethix-MD&")[1];
+    const url = `https://pastebin.com/raw/${sessdata}`;
+    try {
+        const response = await axios.get(url);
+        const data = typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
+        await fs.promises.writeFile(credsPath, data);
+        console.log("🔒 Session Successfully Loaded !!");
+        return true;
+    } catch (error) {
+       // console.error('Failed to download session data:', error);
+        return false;
+    }
+}
 
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 8000;
 
 //=============================================
 
